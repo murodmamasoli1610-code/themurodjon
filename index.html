@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Murodjon — Shaxsiy Portfolio</title>
+  <meta name="description" content="Murodjonning kompyuter arxitekturasi va apparat ta'minotiga bag'ishlangan shaxsiy portfolio veb-sayti.">
+  <meta property="og:title" content="Murodjon — Shaxsiy Portfolio">
+  <meta property="og:description" content="Kompyuter ichki tuzilishi va apparat qismlariga qiziquvchi Murodjonning shaxsiy sahifasi.">
+  <meta property="og:type" content="website">
+
+  <!-- Shriftlar -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Asosiy o'zgaruvchilar va ranglar palitrasi */
+    :root {
+      --bg-base: #0a0d14;
+      --bg-surface: #111724;
+      --bg-surface-elevated: #162032;
+      --border-subtle: #1e293b;
+      --border-accent: rgba(217, 119, 54, 0.4);
+      --copper: #d97736;
+      --copper-hover: #e88949;
+      --copper-glow: rgba(217, 119, 54, 0.2);
+      --cool-cyan: #38bdf8;
+      --cool-cyan-dim: rgba(56, 189, 248, 0.15);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+      --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --container-width: 1080px;
+    }
+
+    /* Reset va asosiy qoidalar */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg-base);
+      background-image: 
+        radial-gradient(ellipse at 80% 0%, rgba(217, 119, 54, 0.07) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 100%, rgba(56, 189, 248, 0.05) 0%, transparent 60%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    /* Tipografiya */
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      color: var(--text-main);
+      line-height: 1.25;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      color: var(--text-muted);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    /* Klaviatura fokusi (Accessibility) */
+    :focus-visible {
+      outline: 2px solid var(--copper);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Konteyner */
+    .container {
+      width: 100%;
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Sayt sarlavhasi (Header) */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgba(10, 13, 20, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border-accent);
+      background-color: var(--bg-surface);
+      color: var(--copper);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--copper);
+      transition: width 0.25s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Mobil menyu tugmasi */
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 8px 12px;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+
+    /* Tugmalar */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 22px;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      border-radius: 4px;
+    }
+
+    .btn-copper {
+      background-color: var(--copper);
+      color: #0a0d14;
+      font-weight: 600;
+      border: 1px solid var(--copper);
+    }
+
+    .btn-copper:hover {
+      background-color: var(--copper-hover);
+      border-color: var(--copper-hover);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--cool-cyan);
+      color: var(--cool-cyan);
+      background-color: var(--cool-cyan-dim);
+    }
+
+    /* Hero bo'limi */
+    .hero-section {
+      padding: 96px 0 80px;
+      position: relative;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.875rem;
+      color: var(--copper);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: var(--font-heading);
+    }
+
+    .hero-title {
+      font-size: clamp(2.75rem, 7vw, 4.5rem);
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.125rem, 2.5vw, 1.35rem);
+      color: var(--cool-cyan);
+      font-weight: 400;
+      max-width: 680px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .hero-desc {
+      font-size: 1.0625rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Yagona animatsiya: Hero bo'limidagi mis rangli elektr uzatish chizig'i */
+    .hero-circuit-line {
+      position: relative;
+      margin-top: 56px;
+      height: 2px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--border-subtle) 0%, rgba(217, 119, 54, 0.4) 50%, var(--border-subtle) 100%);
+      overflow: hidden;
+    }
+
+    .hero-circuit-pulse {
+      position: absolute;
+      top: 0;
+      left: -20%;
+      width: 25%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--copper), transparent);
+      animation: circuitSignal 4s ease-in-out infinite;
+    }
+
+    @keyframes circuitSignal {
+      0% {
+        left: -25%;
+      }
+      50% {
+        left: 100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+
+    /* prefers-reduced-motion: Foydalanuvchi animatsiyani kamaytirishni xohlasa, to'liq o'chirish */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-circuit-pulse {
+        animation: none !important;
+        display: none;
+      }
+      * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* Umumiy bo'lim uslubi */
+    .section-wrap {
+      padding: 80px 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+    }
+
+    .section-kicker {
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--copper);
+      font-family: var(--font-heading);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+      margin-bottom: 12px;
+    }
+
+    .section-intro {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 620px;
+    }
+
+    /* "Men haqimda" bo'limi */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .about-text-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 32px;
+      border-radius: 6px;
+    }
+
+    .about-text-card p + p {
+      margin-top: 16px;
+    }
+
+    .hardware-diagram {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 28px;
+      border-radius: 6px;
+    }
+
+    .diagram-title {
+      font-size: 0.9375rem;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      font-family: var(--font-heading);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .diagram-note {
+      font-size: 0.75rem;
+      color: var(--cool-cyan);
+      letter-spacing: 0.04em;
+    }
+
+    .diagram-nodes {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .node-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background-color: var(--bg-surface-elevated);
+      border-left: 3px solid var(--copper);
+      font-size: 0.875rem;
+    }
+
+    .node-label {
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .node-bus {
+      font-size: 0.75rem;
+      color: var(--text-subtle);
+      font-family: monospace;
+    }
+
+    /* "Ko'nikmalar" bo'limi */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .skill-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 28px;
+      border-radius: 6px;
+      transition: border-color 0.2s ease;
+    }
+
+    .skill-card:hover {
+      border-color: var(--border-accent);
+    }
+
+    .skill-num {
+      font-family: var(--font-heading);
+      font-size: 0.875rem;
+      color: var(--copper);
+      margin-bottom: 12px;
+    }
+
+    .skill-name {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .skill-desc {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* "Ishlarim" (Tahlillar va izlanishlar) bo'limi */
+    .studies-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .study-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 28px;
+      border-radius: 6px;
+      position: relative;
+      transition: border-color 0.2s ease;
+    }
+
+    .study-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .study-tag {
+      font-size: 0.75rem;
+      font-family: monospace;
+      color: var(--cool-cyan);
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .study-title {
+      font-size: 1.125rem;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .study-desc {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* "Tillar" bo'limi */
+    .languages-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 720px;
+    }
+
+    .lang-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 24px 28px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .lang-title {
+      font-size: 1.2rem;
+      color: var(--text-main);
+    }
+
+    .lang-level {
+      font-size: 0.9375rem;
+      color: var(--copper);
+      font-weight: 500;
+    }
+
+    .lang-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* "Aloqa" bo'limi */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 40px;
+    }
+
+    .contact-info-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 32px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-direct-title {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .contact-direct-desc {
+      font-size: 0.9375rem;
+      margin-bottom: 24px;
+    }
+
+    .email-display-box {
+      background-color: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .email-text {
+      font-family: monospace;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      background-color: transparent;
+      border: 1px solid var(--border-accent);
+      color: var(--copper);
+      padding: 6px 14px;
+      font-size: 0.8125rem;
+      font-family: var(--font-body);
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background-color: var(--copper);
+      color: #0a0d14;
+    }
+
+    .copy-btn.copied {
+      background-color: var(--cool-cyan);
+      border-color: var(--cool-cyan);
+      color: #0a0d14;
+    }
+
+    /* Tezkor xat shakli */
+    .contact-form-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 32px;
+      border-radius: 6px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      background-color: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 10px 14px;
+      font-size: 0.9375rem;
+      font-family: var(--font-body);
+      border-radius: 4px;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--copper);
+      outline: none;
+    }
+
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* Futer */
+    .site-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 40px 0;
+      background-color: var(--bg-base);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.875rem;
+      color: var(--text-subtle);
+    }
+
+    .back-to-top {
+      color: var(--copper);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .back-to-top:hover {
+      text-decoration: underline;
+    }
+
+    /* Moslashuvchanlik (Responsive) */
+    @media (max-width: 860px) {
+      .about-grid, .contact-container {
+        grid-template-columns: 1fr;
+      }
+      .studies-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-inner {
+        position: relative;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-surface);
+        border-bottom: 1px solid var(--border-subtle);
+        flex-direction: column;
+        padding: 20px 24px;
+        gap: 16px;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .languages-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-section {
+        padding: 56px 0 48px;
+      }
+      .section-wrap {
+        padding: 56px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Bosh navigatsiya paneli -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="#hero" class="brand-logo" aria-label="Murodjon — bosh sahifa">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>Murodjon</span>
+      </a>
+
+      <button id="mobileMenuBtn" class="mobile-menu-btn" aria-expanded="false" aria-controls="mainNav" aria-label="Menyuni ochish yoki yopish">
+        Menyu
+      </button>
+
+      <nav id="mainNav" role="navigation" aria-label="Asosiy navigatsiya">
+        <ul class="nav-links">
+          <li><a href="#men-haqimda" class="nav-link">Men haqimda</a></li>
+          <li><a href="#konikmalar" class="nav-link">Ko‘nikmalar</a></li>
+          <li><a href="#ishlarim" class="nav-link">Ishlarim</a></li>
+          <li><a href="#tillar" class="nav-link">Tillar</a></li>
+          <li><a href="#aloqa" class="nav-link">Aloqa</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero bo'limi -->
+    <section id="hero" class="hero-section" aria-label="Kirish bo'limi">
+      <div class="container">
+        <div class="hero-meta">
+          <span>Kompyuter arxitekturasi</span>
+          <span aria-hidden="true">/</span>
+          <span>Apparat tahlili</span>
+        </div>
+
+        <h1 class="hero-title">Murodjon</h1>
+
+        <p class="hero-tagline">
+          Kompyuterning ichki tuzilishi va apparat qismlarining o‘zaro ishlash mexanizmlarini o‘rganuvchi ixlosmand.
+        </p>
+
+        <p class="hero-desc">
+          Hisoblash qurilmalari qanday ishlashi, mikrosxemalar, shinalar va tarkibiy qismlarning o‘zaro qanday bog‘lanishi hamda ma’lumotlarni uzatish mantig‘ini tahlil qilishga qiziqaman.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#aloqa" class="btn btn-copper">Bog‘lanish</a>
+          <a href="#ishlarim" class="btn btn-outline">O‘rganishlarim</a>
+        </div>
+
+        <!-- Yagona animatsion element: Mis rangli elektr oqimi nuri -->
+        <div class="hero-circuit-line" aria-hidden="true">
+          <div class="hero-circuit-pulse"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Men haqimda bo'limi -->
+    <section id="men-haqimda" class="section-wrap" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Falsafa va qiziqish</div>
+          <h2 id="about-title" class="section-title">Men haqimda</h2>
+          <p class="section-intro">Kompyuter tizimlari va elektron apparat qismlarining ichki mantig‘ini anglash yo‘lida.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text-card">
+            <p>
+              Kompyuter texnologiyalari olamida meni eng ko‘p qiziqtiradigan jihat — bu temir va kremniyning hisoblash mantig‘i bilan uyg‘unlashuvidir.
+            </p>
+            <p>
+              Men kompyuter korpusi ostidagi har bir mikrosxema, protsessor, xotira katakchalari va aloqa yo‘llari bir-biri bilan qanday hamkorlikda ishlashini, buyruqlar va signallar bir nuqtadan ikkinchi nuqtaga qanday yetib borishini o‘rganaman.
+            </p>
+            <p>
+              Ortiqcha bo‘rttirishlarsiz aytganda, mening asosiy maqsadim — hisoblash mashinalarining ichki arxitekturasini sinchkovlik bilan tahlil qilish va ularning fizik-mantiqiy mexanizmlarini chuqur tushunishdir.
+            </p>
+          </div>
+
+          <div class="hardware-diagram" aria-label="Kompyuter ichki bog'lanish tuzilmasi">
+            <div class="diagram-title">
+              <span>Apparat bog‘lanish mantiqi</span>
+              <span class="diagram-note">Interfeyslar</span>
+            </div>
+            <div class="diagram-nodes">
+              <div class="node-item">
+                <span class="node-label">Markaziy protsessor (CPU)</span>
+                <span class="node-bus">Registrlar va Kesh</span>
+              </div>
+              <div class="node-item">
+                <span class="node-label">Tizim shinasi (System Bus)</span>
+                <span class="node-bus">Ma’lumot magistrali</span>
+              </div>
+              <div class="node-item">
+                <span class="node-label">Tezkor xotira (RAM)</span>
+                <span class="node-bus">Xotira kanallari</span>
+              </div>
+              <div class="node-item">
+                <span class="node-label">Tizimli plata va Chipset</span>
+                <span class="node-bus">PCIe / I/O nazorati</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ko'nikmalar bo'limi -->
+    <section id="konikmalar" class="section-wrap" aria-labelledby="skills-title">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Bilim va tahlil</div>
+          <h2 id="skills-title" class="section-title">Ko‘nikmalar</h2>
+          <p class="section-intro">Kompyuterning ichki tuzilishi va apparat vositalarini o‘rganishdagi asosiy yo‘nalishlar.</p>
+        </div>
+
+        <div class="skills-grid">
+          <article class="skill-card">
+            <div class="skill-num">01 / Tuzilma</div>
+            <h3 class="skill-name">Kompyuterning ichki tuzilishi</h3>
+            <p class="skill-desc">
+              Markaziy protsessor (CPU), tezkor xotira (RAM), saqlash qurilmalari va ona plata arxitekturasi elementlarining vazifalari hamda o‘zaro uyg‘unligini chuqur tushunish.
+            </p>
+          </article>
+
+          <article class="skill-card">
+            <div class="skill-num">02 / Aloqa</div>
+            <h3 class="skill-name">Apparat qismlarining ulanishi</h3>
+            <p class="skill-desc">
+              Shinalar (Buses), kontrollerlar, kiritish-chiqarish magistrallari hamda mikrosxemalarning apparat darajasida bir-biri bilan qanday tutashishi va ma’lumot almashishini bilish.
+            </p>
+          </article>
+
+          <article class="skill-card">
+            <div class="skill-num">03 / Mexanizm</div>
+            <h3 class="skill-name">Signallar va ma’lumot oqimlari</h3>
+            <p class="skill-desc">
+              Buyruqlarning ijro sikli (Fetch-Decode-Execute), apparat uzilishlari (Interrupts) hamda xotiradan protsessorga ma’lumot yetkazib berish bosqichlari mantiqi.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ishlarim (O'rganishlarim va tahlillarim) bo'limi -->
+    <section id="ishlarim" class="section-wrap" aria-labelledby="studies-title">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Izlanishlar</div>
+          <h2 id="studies-title" class="section-title">Ishlarim</h2>
+          <p class="section-intro">Kompyuter ichki dunyosi va texnik arxitekturasini o‘rganish doirasida olib borgan tahlillarim.</p>
+        </div>
+
+        <div class="studies-grid">
+          <article class="study-card">
+            <span class="study-tag">ARXITEKTURA TAHLILI</span>
+            <h3 class="study-title">Tizim shinalari va apparat aloqasi</h3>
+            <p class="study-desc">
+              Protsessor, tizimli plata va tezkor xotira o‘rtasida ma’lumot uzatuvchi shinalar o‘tkazuvchanligi hamda signallar kechikishini (latency) o‘rganish.
+            </p>
+          </article>
+
+          <article class="study-card">
+            <span class="study-tag">XOTIRA IYERARXIYASI</span>
+            <h3 class="study-title">Xotira darajalari va kesh mantiqi</h3>
+            <p class="study-desc">
+              Protsessor registrlaridan tortib L1, L2, L3 kesh xotiralargacha bo‘lgan tezlik va hajm mutanosibligi hamda kesh ma’lumotlarini yangilash mexanizmlari tahlili.
+            </p>
+          </article>
+
+          <article class="study-card">
+            <span class="study-tag">KONTROLLERLAR</span>
+            <h3 class="study-title">Mikrosxemalar va chipset vazifalari</h3>
+            <p class="study-desc">
+              Ona platadagi mikrosxemalar, quvvat fazalari, aloqa ko‘priklari va tashqi qurilmalarni boshqaruvchi apparat kontrollerlarining faoliyatini o‘rganish.
+            </p>
+          </article>
+
+          <article class="study-card">
+            <span class="study-tag">INTERFEYSLAR</span>
+            <h3 class="study-title">Apparat interfeyslari va liniyalari</h3>
+            <p class="study-desc">
+              PCI Express liniyalari, xotira magistrallari hamda zamonaviy kontroller interfeyslarining signal uzatishdagi fizik va mantiqiy xususiyatlari tahlili.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tillar bo'limi -->
+    <section id="tillar" class="section-wrap" aria-labelledby="langs-title">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Muloqot</div>
+          <h2 id="langs-title" class="section-title">Tillar</h2>
+          <p class="section-intro">O‘rganish, texnik adabiyotlarni tahlil qilish va muloqot uchun foydalaniladigan tillar.</p>
+        </div>
+
+        <div class="languages-grid">
+          <div class="lang-card">
+            <h3 class="lang-title">O‘zbek tili</h3>
+            <div class="lang-level">Ona tili</div>
+            <p class="lang-desc">Erkin va to‘liq ravon muloqot hamda fikr almashish.</p>
+          </div>
+
+          <div class="lang-card">
+            <h3 class="lang-title">Rus tili</h3>
+            <div class="lang-level">Erkin muloqot darajasi</div>
+            <p class="lang-desc">Texnik qo‘llanmalar, ilmiy maqolalar va adabiyotlarni o‘rganish.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Aloqa bo'limi -->
+    <section id="aloqa" class="section-wrap" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Bog‘lanish</div>
+          <h2 id="contact-title" class="section-title">Aloqa</h2>
+          <p class="section-intro">Kompyuter arxitekturasi yoki apparat masalalarida savol va fikrlar uchun bog‘lanishingiz mumkin.</p>
+        </div>
+
+        <div class="contact-container">
+          <!-- To'g'ridan-to'g'ri elektron manzil qutisi -->
+          <div class="contact-info-card">
+            <div>
+              <h3 class="contact-direct-title">Elektron pochta</h3>
+              <p class="contact-direct-desc">
+                Har qanday taklif, texnik suhbat yoki savollar uchun to‘g‘ridan-to‘g‘ri elektron manzilimga yozishingiz mumkin.
+              </p>
+
+              <div class="email-display-box">
+                <span id="emailValue" class="email-text">murodmamasoli1610@gmail.com</span>
+                <button type="button" id="copyEmailBtn" class="copy-btn" aria-label="Elektron pochta manzilidan nusxa olish">
+                  Nusxa olish
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <a href="mailto:murodmamasoli1610@gmail.com" class="btn btn-copper" style="width: 100%;">
+                Pochta orqali yozish
+              </a>
+            </div>
+          </div>
+
+          <!-- Xat tayyorlash shakli -->
+          <div class="contact-form-card">
+            <form id="contactForm" onsubmit="handleFormSubmit(event)">
+              <div class="form-group">
+                <label for="senderName" class="form-label">Ismingiz</label>
+                <input type="text" id="senderName" class="form-input" placeholder="Ismingizni kiriting" required>
+              </div>
+
+              <div class="form-group">
+                <label for="emailSubject" class="form-label">Mavzu</label>
+                <input type="text" id="emailSubject" class="form-input" placeholder="Xat mavzusi" required>
+              </div>
+
+              <div class="form-group">
+                <label for="emailMessage" class="form-label">Xabar</label>
+                <textarea id="emailMessage" class="form-textarea" placeholder="Xabaringizni yozing..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-outline" style="width: 100%;">
+                Xabarni tayyorlash
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Futer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div>
+        <span>Murodjon &copy; 2026.</span>
+        <span> Kompyuter arxitekturasi va apparat tahlili.</span>
+      </div>
+      <div>
+        <a href="#hero" class="back-to-top">Yuqoriga qaytish &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Yagona JavaScript logikasi -->
+  <script>
+    // Mobil menyuni boshqarish
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mainNav = document.getElementById('mainNav')?.querySelector('.nav-links');
+
+    if (mobileBtn && mainNav) {
+      mobileBtn.addEventListener('click', function() {
+        const isExpanded = mobileBtn.getAttribute('aria-expanded') === 'true';
+        mobileBtn.setAttribute('aria-expanded', !isExpanded);
+        mainNav.classList.toggle('active');
+      });
+
+      // Menyu havolalari bosilganda menyuni yopish
+      mainNav.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          if (mainNav.classList.contains('active')) {
+            mainNav.classList.remove('active');
+            mobileBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+    }
+
+    // Email manzilidan nusxa olish (Clipboard API)
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const emailValue = document.getElementById('emailValue');
+
+    if (copyBtn && emailValue) {
+      copyBtn.addEventListener('click', function() {
+        const textToCopy = emailValue.innerText.trim();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(textToCopy).then(function() {
+            showCopiedState();
+          }).catch(function() {
+            fallbackCopy(textToCopy);
+          });
+        } else {
+          fallbackCopy(textToCopy);
+        }
+      });
+    }
+
+    function showCopiedState() {
+      if (!copyBtn) return;
+      const originalText = copyBtn.innerText;
+      copyBtn.innerText = 'Nusxalandi!';
+      copyBtn.classList.add('copied');
+      setTimeout(function() {
+        copyBtn.innerText = originalText;
+        copyBtn.classList.remove('copied');
+      }, 2000);
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showCopiedState();
+      } catch (err) {
+        window.prompt('Email manzilini nusxalab oling:', text);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // Xat shakli orqali mailto tayyorlash
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('senderName');
+      const subjectInput = document.getElementById('emailSubject');
+      const messageInput = document.getElementById('emailMessage');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const subject = subjectInput ? subjectInput.value.trim() : 'Murodjon bilan bog‘lanish';
+      const message = messageInput ? messageInput.value.trim() : '';
+
+      const fullBody = encodeURIComponent("Assalomu alaykum Murodjon,\n\n" + message + "\n\nHurmat bilan, " + name);
+      const fullSubject = encodeURIComponent(subject);
+
+      window.location.href = "mailto:murodmamasoli1610@gmail.com?subject=" + fullSubject + "&body=" + fullBody;
+    }
+  </script>
+</body>
+</html>
